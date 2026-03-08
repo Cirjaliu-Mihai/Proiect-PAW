@@ -1,0 +1,115 @@
+/* Despre Noi Page Styles */
+
+.about-section {
+    margin-top: 100px;
+    background-color: #f8f9fa;
+}
+
+.about-section h2 {
+    color: #212529;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.about-section p {
+    color: #555;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.about-image {
+    max-height: 400px;
+    object-fit: cover;
+}
+
+/* Value Cards */
+.value-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.value-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.value-card h3 {
+    color: #212529;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.value-card i {
+    color: rgb(241, 201, 19);
+    margin-right: 0.75rem;
+}
+
+.value-card p {
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+/* Why Choose Us */
+.why-choose-us {
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.choice-item {
+    padding: 2rem;
+}
+
+.choice-item i {
+    font-size: 2.5rem;
+    color: rgb(241, 201, 19);
+    margin-bottom: 1rem;
+}
+
+.choice-item h4 {
+    color: #212529;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.choice-item p {
+    color: #6c757d;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    margin-top: 50px;
+}
+
+footer h5 {
+    color: #fff;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+footer p {
+    color: #bbb;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+footer ul li {
+    margin-bottom: 0.5rem;
+}
+
+footer a {
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: rgb(241, 201, 19);
+}

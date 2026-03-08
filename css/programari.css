@@ -1,0 +1,140 @@
+/* Programari Page Styles */
+
+.booking-section {
+    margin-top: 100px;
+    background-color: #f8f9fa;
+}
+
+.booking-section h2 {
+    color: #212529;
+}
+
+.booking-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 0.75rem;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: rgb(241, 201, 19);
+    box-shadow: 0 0 0 0.2rem rgba(241, 201, 19, 0.25);
+}
+
+/* Days Container */
+.days-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+}
+
+.day-btn {
+    padding: 1rem;
+    border: 2px solid #dee2e6;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    text-align: center;
+    color: #212529;
+}
+
+.day-btn:hover {
+    border-color: rgb(241, 201, 19);
+    background-color: #f8f9fa;
+}
+
+.day-btn.active {
+    background-color: rgb(241, 201, 19);
+    border-color: rgb(241, 201, 19);
+    color: #212529;
+}
+
+.day-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #e9ecef;
+}
+
+/* Times Container */
+.times-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 1rem;
+}
+
+.time-btn {
+    padding: 0.75rem;
+    border: 2px solid #dee2e6;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    text-align: center;
+    color: #212529;
+    font-size: 0.9rem;
+}
+
+.time-btn:hover {
+    border-color: rgb(241, 201, 19);
+    background-color: #f8f9fa;
+}
+
+.time-btn.active {
+    background-color: rgb(241, 201, 19);
+    border-color: rgb(241, 201, 19);
+    color: #212529;
+}
+
+.time-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #e9ecef;
+}
+
+/* Footer */
+footer {
+    margin-top: 50px;
+}
+
+footer h5 {
+    color: #fff;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+footer p {
+    color: #bbb;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+footer ul li {
+    margin-bottom: 0.5rem;
+}
+
+footer a {
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: rgb(241, 201, 19);
+}
+

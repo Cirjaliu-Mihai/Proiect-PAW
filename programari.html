@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/programari.css" />
+  </head>
+  <body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <div
+      class="container-fluid d-flex align-items-center justify-content-between navigation"
+    >
+      <div class="d-flex align-items-center">
+        <a class="" href="index.html"
+          ><img class="logo" src="assets/images/logo.png" alt="logo"
+        /></a>
+        <ul class="nav">
+          <a class="navbutton nav-link" href="index.html">Acasa</a>
+          <a class="nav-link navbutton" href="servicii.html">Servicii</a>
+          <a class="nav-link navbutton" href="echipa.html">Echipa</a>
+          <a class="nav-link navbutton" href="portofoliu.html">Portofoliu</a>
+          <a class="nav-link navbutton" href="despre-noi.html">Despre Noi</a>
+          <a class="nav-link navbutton active" href="programari.html"
+            >Programari</a
+          >
+        </ul>
+      </div>
+      <div
+        class="d-flex align-items-center justify-content-end"
+        style="width: 250px"
+      >
+        <div class="text-dark me-3 fw-bold">
+          <small class="text-muted d-block" style="font-size: 0.7rem"
+            >andrei@gmail.ro</small
+          >
+          Andrei Popescu
+        </div>
+        <a href="profil.html" class="btn btn-outline-warning btn-sm">Profil</a>
+      </div>
+    </div>
+
+    <section class="booking-section py-5">
+      <div class="container">
+        <h2 class="text-center mb-5">Rezervă o Programare</h2>
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <form id="bookingForm" class="booking-form">
+              <div class="form-group mb-4">
+                <label for="service" class="form-label"
+                  >Selectează Serviciul:</label
+                >
+                <select class="form-select" id="service" required>
+                  <option value="">-- Alege un serviciu --</option>
+                  <option value="tuns">Tuns Barbat (50 RON)</option>
+                  <option value="tuns-barba">Tuns + Barba (70 RON)</option>
+                  <option value="spalat">Spalat (30 RON)</option>
+                  <option value="vopsit">Vopsit (60 RON)</option>
+                  <option value="barba">Barba (40 RON)</option>
+                  <option value="tratament">Tratament Păr (45 RON)</option>
+                  <option value="pomada">Briyantina / Pomadă (15 RON)</option>
+                  <option value="copil">Tuns Copil (35 RON)</option>
+                  <option value="masaj">Masaj Cap și Piele (50 RON)</option>
+                </select>
+              </div>
+
+              <div class="form-group mb-4">
+                <label for="teamMember" class="form-label"
+                  >Selectează Frizerul (Opțional):</label
+                >
+                <select class="form-select" id="teamMember">
+                  <option value="">-- Frizer aleator --</option>
+                  <option value="andrei">Andrei Popescu</option>
+                  <option value="mihai">Mihai Ionescu</option>
+                  <option value="cristian">Cristian Georgescu</option>
+                  <option value="daniel">Daniel Vasilescu</option>
+                </select>
+              </div>
+
+              <div class="form-group mb-4">
+                <label class="form-label">Selectează Ziua:</label>
+                <div class="days-container" id="daysContainer"></div>
+              </div>
+
+              <div class="form-group mb-4">
+                <label class="form-label">Selectează Ora:</label>
+                <div class="times-container" id="timesContainer">
+                  <p class="text-muted">Alege mai întâi o zi</p>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-warning btn-lg">
+                  Confirmă Programarea
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-dark text-white py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h5>Mihai's Salon</h5>
+            <p>
+              Expertiza noastră în frizerie aduce stil și încredere clienților
+              noștri de ani de zile.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <h5>Link-uri Utile</h5>
+            <ul class="list-unstyled">
+              <li><a href="index.html" class="text-white">Acasă</a></li>
+              <li><a href="servicii.html" class="text-white">Servicii</a></li>
+              <li><a href="echipa.html" class="text-white">Echipa</a></li>
+              <li>
+                <a href="portofoliu.html" class="text-white">Portofoliu</a>
+              </li>
+              <li>
+                <a href="despre-noi.html" class="text-white">Despre Noi</a>
+              </li>
+              <li>
+                <a href="programari.html" class="text-white">Programări</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h5>Contact</h5>
+            <p>
+              Email: info@mfrizerie.ro<br />Telefon: +40 123 456 789<br />Adresă:
+              Strada Primaverii , Craiova
+            </p>
+          </div>
+        </div>
+        <hr class="my-4" />
+        <div class="text-center">
+          <p>&copy; 2026 Mihai's Salon. Toate drepturile rezervate.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+
+  <script src="scripts/programari.js"></script>
+</html>
