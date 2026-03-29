@@ -1,0 +1,66 @@
+# .gitignore for a .NET (Razor Pages) project
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userprefs
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+artifacts/
+
+# Rider/JetBrains
+.idea/
+*.sln.iml
+
+
+# Publish
+publish/
+*.Publish.xml
+*.zip
+
+# NuGet
+*.nupkg
+packages/
+.nuget/
+project.lock.json
+project.fragment.lock.json
+
+# EF Core local DB / SQLite
+*.db
+*.db-shm
+*.db-wal
+*.mdf
+*.ldf
+
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Node
+node_modules/
+
+# Coverage / test
+coverage/
+*.coverage
+*.coveragexml
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
+# Others
+*.bak
+*.swp
