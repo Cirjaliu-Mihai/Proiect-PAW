@@ -1,0 +1,44 @@
+@model List<BarberSalon.Models.Service>
+
+@{
+    ViewData["Title"] = "Serviciile Noastre";
+}
+
+@section CustomStyles {
+    <link rel="stylesheet" href="~/css/services.css" asp-append-version="true" />
+}
+
+
+<section class="services-list py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Serviciile Noastre</h2>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="services-table">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        @foreach (var service in Model)
+                        {
+                            <div class="service-item">
+                                <div class="service-info">
+                                    <h4>@service.Name</h4>
+                                    <p>@service.Description</p>
+                                </div>
+                                <div class="service-price">@service.Price RON</div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center py-5">
+                            <p class="text-muted">Nu sunt servicii disponibile momentan.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <a asp-area="" asp-controller="Appointments" asp-action="Create" class="btn btn-warning btn-lg">Rezervă Programare</a>
+        </div>
+    </div>
+</section>

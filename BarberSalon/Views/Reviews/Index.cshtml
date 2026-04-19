@@ -1,0 +1,74 @@
+@model IEnumerable<BarberSalon.Models.Review>
+
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+@section CustomStyles {
+    <link rel="stylesheet" href="~/css/reviews.css" asp-append-version="true" />
+}
+
+<div class="container mt-5">
+    <h1 class="mb-4">Recenzii Clienți</h1>
+    <p class="lead mb-5">Citiți ce au spus clienții noștri despre serviciile noastre</p>
+
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var review in Model)
+            {
+                <div class="col-md-6 mb-4">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="stars">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <span class="star" style="color: @(i <= review.Rating ? "rgb(241, 201, 19)" : "#e9ecef")">★</span>
+                                }
+                            </div>
+                            <h5>@review.Author</h5>
+                        </div>
+
+                        @* Displaying metadata if Service or Worker exists *@
+                        <p class="review-date">
+                            @if (review.Service != null)
+                            {
+                                <small class="badge bg-light text-dark">@review.Service.Name</small>
+                            }
+                            @if (review.Worker != null)
+                            {
+                                <small class="text-muted"> | Stilist: @review.Worker.Name</small>
+                            }
+                        </p>
+
+                        <p class="review-text">
+                            "@review.Comment"
+                        </p>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center">
+                <p class="text-muted">Momentan nu există recenzii. Fii primul care lasă una!</p>
+            </div>
+        }
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="text-center mt-5">
+        <h3>Ai o experiență de care vrei să vorbești?</h3>
+        <p>Lasă o recenzie și ajută-i pe alții să descopere salonul nostru!</p>
+        <a asp-controller="Reviews" asp-action="Create" class="btn btn-warning btn-lg mt-3">
+            Adaugă Recenzie
+        </a>
+    </div>
+</div>

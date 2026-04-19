@@ -1,8 +1,78 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@section CustomStyles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
+
+<div class="cover-container">
+    <img src="~/assets/images/cover.png" alt="cover" class="cover-photo" />
+    <div class="hero-overlay">
+        <div class="hero-content">
+            <h1>Bun Venit la Mihai's Salon</h1>
+            <p>Experimentați cele mai bune servicii de îngrijire din oraș</p>
+            <a asp-area="" asp-controller="Appointments" asp-action="Index" class="btn btn-warning btn-lg">Rezervă
+                Programare</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="about py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2>Despre Noi</h2>
+                    <p>
+                        Înființată în 2023, Mihai's Salon deservește comunitatea cu
+                        servicii de frizerie excepționale. Echipa noastră de profesioniști
+                        pricepuți este dedicată să vă facă să arătați și să vă simțiți cel
+                        mai bine.
+                    </p>
+                    <a asp-area="" asp-controller="Team" asp-action="Index" class="btn btn-outline-warning">Întâlnește
+                        Echipa</a>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="~/assets/images/logo.png" alt="Logo" class="img-fluid rounded" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-4">Ce Spun Clienții Noștri</h2>
+                <div class="row">
+                    <div class="col-md-4 text-center mb-4">
+                        <blockquote class="blockquote">
+                            <p>
+                                "Cel mai bun frizer din oraș! Întotdeauna lasă cu un zâmbet."
+                            </p>
+                            <footer class="blockquote-footer">Ion Popescu</footer>
+                        </blockquote>
+                    </div>
+                    <div class="col-md-4 text-center mb-4">
+                        <blockquote class="blockquote">
+                            <p>
+                                "Servicii de top și atmosferă prietenoasă. Recomand cu căldură!"
+                            </p>
+                            <footer class="blockquote-footer">Maria Ionescu</footer>
+                        </blockquote>
+                    </div>
+                    <div class="col-md-4 text-center mb-4">
+                        <blockquote class="blockquote">
+                            <p>"Întotdeauna mă simt proaspăt și încrezător după o vizită."</p>
+                            <footer class="blockquote-footer">Vasile Georgescu</footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact py-5">
+            <div class="container text-center">
+                <h2>Contactează-ne</h2>
+                <p>Pentru programări sau întrebări, nu ezitați să ne contactați.</p>
+                <a asp-area="" asp-controller="Appointments" asp-action="Index" class="btn btn-warning btn-lg">Rezervă Acum</a>
+            </div>
+        </section>

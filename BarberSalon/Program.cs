@@ -1,13 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using BarberSalon.Data;
+using BarberSalon.Repositories.Interfaces;
+using BarberSalon.Repositories;
+using BarberSalon.Services.Interfaces;
+using BarberSalon.Services;
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<BarberSalonContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BarberSalonContext") ?? throw new InvalidOperationException("Connection string 'BarberSalonContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<BarberSalonContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BarberSalonContext") ?? throw new InvalidOperationException("Connection string 'BarberSalonContext' not found.")));
+
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IReviewsRepository, ReviewRepository>();
+builder.Services.AddScoped<IPortofolioRepository, PortofolioRepository>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IWorkerRepository, WorkerRepository>();
+builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+builder.Services.AddScoped<IPortfolioService, PortfolioService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

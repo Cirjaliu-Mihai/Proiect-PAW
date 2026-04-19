@@ -1,0 +1,112 @@
+/* Profile Page Styles */
+
+.profile-section {
+    margin-top: 100px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding-bottom: 3rem;
+}
+
+/* User Info Card */
+.user-info-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.user-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgb(241, 201, 19);
+}
+
+.user-info-card h2 {
+    color: #212529;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.user-email,
+.user-member {
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.user-email i,
+.user-member i {
+    color: rgb(241, 201, 19);
+    margin-right: 0.5rem;
+}
+
+/* User Stats */
+.user-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgb(241, 201, 19);
+}
+
+.stat-label {
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+/* Profile Actions */
+.profile-actions {
+    margin-top: 2rem;
+}
+
+.profile-actions .btn {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+}
+
+.profile-actions .btn-warning {
+    background-color: rgb(241, 201, 19);
+    border-color: rgb(241, 201, 19);
+    color: #212529;
+}
+
+.profile-actions .btn-warning:hover {
+    background-color: #dda319;
+    border-color: #dda319;
+}
+
+/* Profile Review Cards */
+.profile-review-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.07);
+    transition: box-shadow 0.2s ease;
+}
+
+.profile-review-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.profile-review-card .stars {
+    font-size: 1.1rem;
+}
+
+.profile-review-card .review-comment {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}

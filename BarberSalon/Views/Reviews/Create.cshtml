@@ -1,0 +1,102 @@
+@{
+    ViewData["Title"] = "Adaugă Recenzie";
+}
+
+@section CustomStyles {
+    <link rel="stylesheet" href="~/css/reviews.css" asp-append-version="true" />
+}
+
+<div class="container mt-5" style="max-width: 680px;">
+    <h1 class="mb-2">Adaugă o Recenzie</h1>
+    <p class="lead mb-4">Împărtășește experiența ta cu ceilalți clienți</p>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
+    }
+
+    <form asp-controller="Reviews" asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label for="author" class="form-label fw-semibold">Numele tău <span class="text-danger">*</span></label>
+            <input type="text" id="author" name="author" class="form-control" placeholder="Ex: Ion Popescu" value="@ViewBag.CurrentUser" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="serviceId" class="form-label fw-semibold">Serviciu <span class="text-danger">*</span></label>
+            <select id="serviceId" name="serviceId" class="form-select" required>
+                <option value="">-- Selectează un serviciu --</option>
+                @foreach (var item in (IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>)ViewBag.Services)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="workerId" class="form-label fw-semibold">Stilist <span class="text-danger">*</span></label>
+            <select id="workerId" name="workerId" class="form-select" required>
+                <option value="">-- Selectează un stilist --</option>
+                @foreach (var item in (IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>)ViewBag.Workers)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Evaluare <span class="text-danger">*</span></label>
+            <div class="star-rating d-flex gap-2 align-items-center">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <div class="form-check form-check-inline m-0">
+                        <input class="form-check-input visually-hidden" type="radio" name="rating" id="star@(i)" value="@i" required />
+                        <label class="form-check-label star-label fs-2" for="star@(i)" title="@i stele" style="cursor:pointer; color: #e9ecef;">★</label>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label for="comment" class="form-label fw-semibold">Comentariu <span class="text-danger">*</span></label>
+            <textarea id="comment" name="comment" class="form-control" rows="4" placeholder="Descrie experiența ta..." required></textarea>
+        </div>
+
+        <div class="d-flex gap-3">
+            <button type="submit" class="btn btn-warning btn-lg px-4">Trimite Recenzia</button>
+            <a asp-controller="Reviews" asp-action="Index" class="btn btn-outline-secondary btn-lg px-4">Anulează</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        // Interactive star rating highlight
+        const starLabels = document.querySelectorAll('.star-label');
+        const starInputs = document.querySelectorAll('input[name="rating"]');
+
+        function highlightStars(upTo) {
+            starLabels.forEach((label, idx) => {
+                label.style.color = idx < upTo ? 'rgb(241, 201, 19)' : '#e9ecef';
+            });
+        }
+
+        starLabels.forEach((label, idx) => {
+            label.addEventListener('mouseover', () => highlightStars(idx + 1));
+            label.addEventListener('mouseleave', () => {
+                const checked = document.querySelector('input[name="rating"]:checked');
+                highlightStars(checked ? parseInt(checked.value) : 0);
+            });
+        });
+
+        starInputs.forEach((input, idx) => {
+            input.addEventListener('change', () => highlightStars(idx + 1));
+        });
+    </script>
+}

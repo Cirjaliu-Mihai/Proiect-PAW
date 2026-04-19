@@ -1,0 +1,53 @@
+@model List<BarberSalon.Models.PortofolioItem>
+
+@{
+    ViewData["Title"] = "Portofoliu";
+}
+
+@section CustomStyles {
+    <link rel="stylesheet" href="~/css/portfolio.css" asp-append-version="true" />
+}
+
+<section class="portfolio-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Portofoliul Nostru</h2>
+        <p class="text-center text-muted mb-5">
+            Vedeți unele din lucrările noastre - transformări de stil și îngrijire profesională
+        </p>
+
+        <div class="portfolio-grid">
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="portfolio-item">
+                        <img src="@item.ImageUrl" alt="@item.Service?.Name" class="portfolio-img" />
+                        <div class="portfolio-overlay">
+                            <p>@item.Service?.Name</p>
+                        </div>
+                        <form asp-action="Delete" method="post" class="portfolio-delete-form" onsubmit="return confirm('Sigur vrei să ștergi?');">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="portfolio-delete-btn" title="Șterge">×</button>
+                        </form>
+                    </div>
+                }
+            }
+
+            <!-- Add New Portfolio Item Card -->
+            <div class="portfolio-item portfolio-add-card">
+                <a asp-action="Create" class="add-portfolio-link">
+                    <div class="portfolio-add-content">
+                        <span class="add-icon">+</span>
+                        <p>Adaugă Portofoliu</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a asp-area="" asp-controller="Appointments" asp-action="Index" class="btn btn-warning btn-lg">
+                Rezervă Acum
+            </a>
+        </div>
+    </div>
+</section>

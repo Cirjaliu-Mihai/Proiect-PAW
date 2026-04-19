@@ -1,0 +1,52 @@
+@model List<BarberSalon.Models.Worker>
+
+@{
+    ViewData["Title"] = "Echipa Noastră";
+    var frizerImages = new[] { "frizer1.png", "frizer2.png", "frizer3.png", "frizer4.png" };
+}
+
+@section CustomStyles {
+    <link rel="stylesheet" href="~/css/team.css" asp-append-version="true" />
+}
+
+
+<section class="team py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Echipa Noastră</h2>
+        <div class="row">
+            @if (Model != null && Model.Count > 0)
+            {
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var worker = Model[i];
+                    var imageIndex = i % frizerImages.Length;
+                    <div class="col-md-3 text-center mb-4">
+                        <div class="card">
+                            <img
+                                src="~/assets/images/@frizerImages[imageIndex]"
+                                class="card-img-top"
+                                alt="@worker.Name"
+                            />
+                            <div class="card-body">
+                                <h5 class="card-title">@worker.Name</h5>
+                                <p class="card-text">@worker.Position</p>
+                                <p>
+                                    Profesionist cu experiență, dedicat să îți ofere
+                                    servicii de înaltă calitate și atenție la detalii.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <p class="text-muted">Nu sunt membri de echipă disponibili momentan.</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+

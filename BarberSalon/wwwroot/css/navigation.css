@@ -1,0 +1,54 @@
+/* Navigation Bar */
+.navigation {
+    height: 100px;
+    position: fixed;
+    top: 0px;
+    background-color: rgb(230, 230, 230);
+    z-index: 1000;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.logo {
+    width: 80px;
+}
+
+.nav {
+    list-style: none;
+    display: flex;
+    margin-left: 30px;
+    margin-bottom: 0;
+}
+
+.nav-item {
+    margin: 0;
+}
+
+.navbutton {
+    text-align: center;
+    color: #212529;
+    font-weight: 500;
+    text-decoration: none;
+    position: relative;
+    margin-left: 10px;
+    padding: 0.5rem 0.75rem;
+    display: block;
+}
+
+.navbutton::after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 0px;
+    background: transparent;
+    margin-top: -2px;
+    transition: 0.5s ease;
+}
+
+.navbutton:hover::after,
+.navbutton.active::after {
+    width: 100%;
+    background: rgb(241, 201, 19);
+    color: #212529;
+    margin-top: -3px;
+}

@@ -1,0 +1,55 @@
+/* Services Page Styles */
+.services-list {
+    margin-top: 100px;
+    background-color: #f8f9fa;
+}
+
+.services-list h2 {
+    color: #212529;
+}
+
+.services-table {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.service-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.service-item:last-child {
+    border-bottom: none;
+}
+
+.service-item:hover {
+    background-color: #f8f9fa;
+    padding-left: 2.5rem;
+}
+
+.service-info h4 {
+    margin-bottom: 0.5rem;
+    color: #212529;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.service-info p {
+    margin-bottom: 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.service-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgb(241, 201, 19);
+    white-space: nowrap;
+    margin-left: 3rem;
+}

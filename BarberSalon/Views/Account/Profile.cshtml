@@ -1,0 +1,136 @@
+@using BarberSalon.Models
+@{
+    ViewData["Title"] = "Profilul Meu";
+}
+
+@section CustomStyles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+}
+
+<section class="profile-section py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-8 offset-md-2">
+                <div class="user-info-card">
+                    <div class="row align-items-center">
+                        <div class="col-md-3 text-center">
+                            <img src="~/assets/images/poza-profil.png" alt="User Avatar" class="user-avatar" />
+                        </div>
+                        <div class="col-md-9">
+                            <h2>Andrei Popescu</h2>
+                            <p class="user-email">
+                                <i class="fas fa-envelope"></i> andrei@gmail.ro
+                            </p>
+                            <p class="user-member">
+                                <i class="fas fa-calendar"></i> Membru din Martie 2025
+                            </p>
+                            <div class="user-stats">
+                                <div class="stat">
+                                    <span class="stat-number">12</span>
+                                    <span class="stat-label">Programări</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number">3</span>
+                                    <span class="stat-label">Viitoare</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="profile-actions text-center">
+                    <a href="#" class="btn btn-warning me-2">
+                        <i class="fas fa-edit"></i> Editează Profil
+                    </a>
+                    <a asp-area="" asp-controller="Appointments" asp-action="Index" class="btn btn-outline-primary">
+                        <i class="fas fa-calendar"></i> Programările Mele
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="row mt-3">
+                <div class="col-md-8 offset-md-2">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        @TempData["Success"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @{
+            var myReviews = ViewBag.MyReviews as IEnumerable<Review>;
+        }
+        <div class="row mt-5">
+            <div class="col-md-8 offset-md-2">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0"><i class="fas fa-star text-warning me-2"></i>Recenziile Mele</h4>
+                    <a asp-controller="Reviews" asp-action="Create" class="btn btn-warning btn-sm">
+                        <i class="fas fa-plus me-1"></i> Adaugă Recenzie
+                    </a>
+                </div>
+                @if (myReviews != null && myReviews.Any())
+                {
+                    foreach (var review in myReviews)
+                    {
+                        <div class="profile-review-card mb-3">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <div class="stars mb-1">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            <span class="star"
+                                                  style="color: @(i <= review.Rating ? "rgb(241, 201, 19)" : "#e9ecef")">★</span>
+                                        }
+                                    </div>
+                                    @if (review.Service != null)
+                                    {
+                                        <span class="badge bg-light text-dark me-1">@review.Service.Name</span>
+                                    }
+                                    @if (review.Worker != null)
+                                    {
+                                        <small class="text-muted">Stilist: @review.Worker.Name</small>
+                                    }
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id"
+                                           class="btn btn-sm btn-outline-warning">
+                                        <i class="fas fa-edit"></i> Editează
+                                    </a>
+                                    <form asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id" method="post"
+                                          onsubmit="return confirm('Ești sigur că vrei să ștergi această recenzie?');">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i> Șterge
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <p class="review-comment mb-0">"@review.Comment"</p>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center py-4 text-muted">
+                        <i class="fas fa-comment-slash fs-3 mb-2 d-block"></i>
+                        Nu ai adăugat nicio recenzie încă.
+                        <div class="mt-2">
+                            <a asp-controller="Reviews" asp-action="Create" class="btn btn-warning btn-sm">
+                                Adaugă o Recenzie
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

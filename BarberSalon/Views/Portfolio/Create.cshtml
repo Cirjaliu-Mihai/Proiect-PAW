@@ -1,0 +1,58 @@
+@{
+    ViewData["Title"] = "Adaugă Portofoliu";
+}
+
+<div class="container mt-5 mb-5">
+    <h2 class="mb-4">Adaugă Element Portofoliu</h2>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data" class="row g-3">
+        <div class="col-md-6">
+            <label for="ServiceId" class="form-label">Serviciu</label>
+            <select class="form-select" id="ServiceId" name="ServiceId" required>
+                <option value="">-- Selectează Serviciu --</option>
+                @if (ViewData["ServiceId"] is SelectList serviceList)
+                {
+                    @foreach (var item in serviceList)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="WorkerId" class="form-label">Lucrător</label>
+            <select class="form-select" id="WorkerId" name="WorkerId" required>
+                <option value="">-- Selectează Lucrător --</option>
+                @if (ViewData["WorkerId"] is SelectList workerList)
+                {
+                    @foreach (var item in workerList)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="col-12">
+            <label for="ImageFile" class="form-label">Imagine Portofoliu</label>
+            <input class="form-control" type="file" id="ImageFile" name="ImageFile" accept="image/*" required />
+            <small class="text-muted">Alege o imagine pentru element portofoliu</small>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-warning">Adaugă Portofoliu</button>
+            <a asp-action="Index" class="btn btn-secondary">Anulează</a>
+        </div>
+    </form>
+
+    @if (ViewData.ModelState.Any(m => m.Value != null && m.Value.Errors.Any()))
+    {
+        <div class="alert alert-danger mt-3" role="alert">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(m => m.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+</div>

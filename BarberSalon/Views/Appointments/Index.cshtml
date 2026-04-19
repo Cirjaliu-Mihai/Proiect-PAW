@@ -1,61 +1,91 @@
-﻿@model IEnumerable<BarberSalon.Models.Appointment>
+@model IEnumerable<BarberSalon.Models.Appointment>
 
 @{
     ViewData["Title"] = "Programări";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">Adaugă Programare</a>
-</p>
-
-<div class="table-responsive">
-    <table class="table table-hover table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>ID Utilizator</th>
-                <th>Serviciu</th>
-                <th>Frizer</th>
-                <th>Data</th>
-                <th>Ora</th>
-                <th>Status</th>
-                <th>Acțiuni</th>
-            </tr>
-        </thead>
-        <tbody>
-@foreach (var item in Model) {
-            <tr>
-                <td>@item.UserId</td>
-                <td>@item.Service.Name</td>
-                <td>@item.Worker.Name</td>
-                <td>@item.AppointmentDate.ToString("dd/MM/yyyy")</td>
-                <td>@item.AppointmentTime.ToString("HH:mm")</td>
-                <td>
-                    @if (item.Status.ToString() == "Confirmed")
-                    {
-                        <span class="badge bg-success">Confirmată</span>
-                    }
-                    else if (item.Status.ToString() == "Canceled")
-                    {
-                        <span class="badge bg-danger">Anulată</span>
-                    }
-                    else if (item.Status.ToString() == "Finalized")
-                    {
-                        <span class="badge bg-info">Finalizată</span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-warning">@item.Status</span>
-                    }
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editează</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalii</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Șterge</a>
-                </td>
-            </tr>
+@section CustomStyles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/appointments.css" asp-append-version="true" />
 }
-        </tbody>
-    </table>
-</div>
+
+<section class="appointments-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="appointments-header d-flex justify-content-between align-items-center">
+                    <h2>Programările Mele</h2>
+                    <div class="add-appointment-btn">
+                        <a asp-action="Create" class="btn btn-warning">
+                            <i class="fas fa-plus"></i> Adaugă Programare
+                        </a>
+                    </div>
+                </div>
+
+                @if (Model.Any())
+                {
+                    <div class="bookings-container">
+                        @foreach (var item in Model)
+                        {
+                            <div class="booking-card">
+                                <div class="booking-header">
+                                    <span class="booking-service">@item.Service?.Name</span>
+                                    <span class="booking-status @item.Status.ToString().ToLower()">
+                                        @(item.Status.ToString() == "Confirmed" ? "Confirmată" :
+                                          item.Status.ToString() == "Canceled" ? "Anulată" :
+                                          item.Status.ToString() == "Finalized" ? "Finalizată" :
+                                          item.Status.ToString())
+                                    </span>
+                                </div>
+
+                                <div class="booking-details">
+                                    <p>
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <strong>Data:</strong> @item.AppointmentDate.ToString("dddd, dd MMMM yyyy")
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-clock"></i>
+                                        <strong>Ora:</strong> @item.AppointmentTime.ToString("HH:mm")
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-user"></i>
+                                        <strong>Frizer:</strong> @item.Worker?.Name
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-tag"></i>
+                                        <strong>Preț:</strong> @item.Service?.Price RON
+                                    </p>
+                                </div>
+
+                                <div class="booking-actions">
+                                    @if (item.AppointmentDate > DateTime.Now)
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">
+                                            <i class="fas fa-edit"></i> Editează
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">
+                                            <i class="fas fa-info-circle"></i> Detalii
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">
+                                            <i class="fas fa-trash"></i> Șterge
+                                        </a>
+                                    }
+                                   
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="no-bookings">
+                        <i class="fas fa-calendar-times"
+                           style="font-size: 3rem; color: #6c757d; margin-bottom: 1rem; display: block;"></i>
+                        <p class="text-muted">Nu ai programări active.</p>
+                        <a asp-action="Create">Rezervă una acum!</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

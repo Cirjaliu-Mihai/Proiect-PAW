@@ -1,0 +1,28 @@
+/* Footer */
+footer {
+    margin-top: 50px;
+}
+
+footer h5 {
+    color: #fff;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+footer p {
+    color: #bbb;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+footer ul li {
+    margin-bottom: 0.5rem;
+}
+
+footer a {
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: rgb(241, 201, 19);
+}

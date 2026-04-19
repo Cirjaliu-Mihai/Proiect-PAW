@@ -1,53 +1,115 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BarberSalon</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/global.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/navigation.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/footer.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BarberSalon.styles.css" asp-append-version="true" />
 </head>
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BarberSalon</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointments" asp-action="Create">Appointments</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+        <nav class="container-fluid d-flex align-items-center justify-content-between navigation">
+            <div class="d-flex align-items-center">
+                <a class="" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img class="logo" src="~/assets/images/logo.png" alt="logo" />
+                </a>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link navbutton" asp-area="" asp-controller="Home" asp-action="Index">Acasă</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbutton" asp-area="" asp-controller="Services"
+                           asp-action="Index">Servicii</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbutton" asp-area="" asp-controller="Team" asp-action="Index">Echipa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbutton" asp-area="" asp-controller="Portfolio"
+                           asp-action="Index">Portofoliu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbutton" asp-area="" asp-controller="Home" asp-action="About">Despre
+                            Noi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbutton" asp-area="" asp-controller="Reviews" asp-action="Index">Recenzii</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbutton" asp-area="" asp-controller="Appointments"
+                           asp-action="Index">Programări</a>
+                    </li>
                     </ul>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - BarberSalon - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                <div class="d-flex align-items-center justify-content-end" style="width: 250px">
+                    <div class="text-dark me-3 fw-bold">
+                        <small class="text-muted d-block" style="font-size: 0.7rem">andrei@gmail.ro</small>
+                        Andrei Popescu
+                    </div>
+                    <a asp-area="" asp-controller="Account" asp-action="Profile"
+                       class="btn btn-outline-warning btn-sm">Profil</a>
+                </div>
+            </nav>
+        </header>
+        <div class="main-content">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>
+
+        <footer class="bg-dark text-white py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Mihai's Salon</h5>
+                        <p>
+                            Expertiza noastră în frizerie aduce stil și încredere clienților
+                            noștri de ani de zile.
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Link-uri Utile</h5>
+                        <ul class="list-unstyled">
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index" class="text-white">Acasă</a></li>
+                            <li><a asp-area="" asp-controller="Services" asp-action="Index" class="text-white">Servicii</a>
+                            </li>
+                            <li><a asp-area="" asp-controller="Team" asp-action="Index" class="text-white">Echipa</a></li>
+                            <li><a asp-area="" asp-controller="Portfolio" asp-action="Index"
+                                       class="text-white">Portofoliu</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="About" class="text-white">Despre Noi</a>
+                                </li>
+                                <li><a asp-area="" asp-controller="Reviews" asp-action="Index" class="text-white">Recenzii</a>
+                                </li>
+                                <li><a asp-area="" asp-controller="Appointments" asp-action="Index"
+                                           class="text-white">Programări</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <h5>Contact</h5>
+                                <p>
+                                    Email: info@mfrizerie.ro<br />Telefon: +40 123 456 789<br />Adresă:
+                                    Strada Primaverii , Craiova
+                                </p>
+                            </div>
+                        </div>
+                        <hr class="my-4" />
+                        <div class="text-center">
+                            <p>&copy; 2026 Mihai's Salon. Toate drepturile rezervate.</p>
+                        </div>
+                    </div>
+                </footer>
+                <script src="~/lib/jquery/dist/jquery.min.js"></script>
+                <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="~/js/site.js" asp-append-version="true"></script>
+                @await RenderSectionAsync("Scripts", required: false)
+                @await RenderSectionAsync("CustomStyles", required: false)
+            </body>
+
+        </html>

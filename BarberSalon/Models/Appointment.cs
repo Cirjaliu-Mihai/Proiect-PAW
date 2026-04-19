@@ -10,11 +10,11 @@ namespace BarberSalon.Models
 
         public int ServiceId { get; set; }
 
-        public required Service Service { get; set; }
+        public Service? Service { get; set; }
 
         public int WorkerId { get; set; }
 
-        public required Worker Worker { get; set; }
+        public Worker? Worker { get; set; }
 
         public DateTime AppointmentDate { get; set; }
 
@@ -27,3 +27,4 @@ namespace BarberSalon.Models
         public DateTime? UpdatedAt { get; set; }
     }
 }
+
