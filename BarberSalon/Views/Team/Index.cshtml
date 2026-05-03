@@ -2,31 +2,38 @@
 
 @{
     ViewData["Title"] = "Echipa Noastră";
-    var frizerImages = new[] { "frizer1.png", "frizer2.png", "frizer3.png", "frizer4.png" };
 }
 
 @section CustomStyles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="~/css/team.css" asp-append-version="true" />
 }
 
-
 <section class="team py-5 bg-light">
     <div class="container">
-        <h2 class="text-center mb-5">Echipa Noastră</h2>
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h2 class="mb-0 w-100 text-center">Echipa Noastră</h2>
+            <a asp-action="Create" class="btn btn-warning text-nowrap ms-3">
+                <i class="fas fa-plus me-1"></i> Adaugă Membru
+            </a>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
         <div class="row">
             @if (Model != null && Model.Count > 0)
             {
-                @for (int i = 0; i < Model.Count; i++)
+                @foreach (var worker in Model)
                 {
-                    var worker = Model[i];
-                    var imageIndex = i % frizerImages.Length;
                     <div class="col-md-3 text-center mb-4">
                         <div class="card">
-                            <img
-                                src="~/assets/images/@frizerImages[imageIndex]"
-                                class="card-img-top"
-                                alt="@worker.Name"
-                            />
+                            <img src="@worker.PhotoPath" class="card-img-top" alt="@worker.Name" />
                             <div class="card-body">
                                 <h5 class="card-title">@worker.Name</h5>
                                 <p class="card-text">@worker.Position</p>
@@ -34,6 +41,18 @@
                                     Profesionist cu experiență, dedicat să îți ofere
                                     servicii de înaltă calitate și atenție la detalii.
                                 </p>
+                                <div class="d-flex justify-content-center gap-2 mt-2">
+                                    <a asp-action="Edit" asp-route-id="@worker.Id" class="btn btn-sm btn-outline-warning">
+                                        <i class="fas fa-edit"></i> Editează
+                                    </a>
+                                    <form asp-action="Delete" asp-route-id="@worker.Id" method="post"
+                                          onsubmit="return confirm('Ești sigur că vrei să ștergi pe @worker.Name?');">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i> Șterge
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

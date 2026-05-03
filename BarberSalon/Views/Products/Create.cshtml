@@ -1,0 +1,81 @@
+@model BarberSalon.Models.Product
+
+@{
+    ViewData["Title"] = "Adaugă Produs";
+}
+
+@section CustomStyles {
+    <link rel="stylesheet" href="~/css/products.css" asp-append-version="true" />
+}
+
+<section class="py-5 form-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card p-4">
+                    <h4 class="mb-4">Adaugă Produs Nou</h4>
+
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Nume produs</label>
+                            <input asp-for="Name" class="form-control" placeholder="ex: American Crew Fiber" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Brand" class="form-label">Brand</label>
+                            <input asp-for="Brand" class="form-control" placeholder="ex: American Crew" />
+                            <span asp-validation-for="Brand" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Descriere</label>
+                            <textarea asp-for="Description" class="form-control" rows="3"
+                                      placeholder="Descriere scurtă a produsului..."></textarea>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label asp-for="Price" class="form-label">Preț (RON)</label>
+                                <input asp-for="Price" type="number" step="0.01" min="0" class="form-control"
+                                       placeholder="0.00" />
+                                <span asp-validation-for="Price" class="text-danger small"></span>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label asp-for="StockQuantity" class="form-label">Stoc</label>
+                                <input asp-for="StockQuantity" type="number" min="0" class="form-control"
+                                       placeholder="0" />
+                                <span asp-validation-for="StockQuantity" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="photo" class="form-label">Fotografie produs</label>
+                            <input type="file" id="photo" name="photo" class="form-control"
+                                   accept=".jpg,.jpeg,.png,.webp" />
+                            <small class="text-muted">Acceptat: .jpg, .jpeg, .png, .webp</small>
+                        </div>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-save me-1"></i> Salvează
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-1"></i> Anulează
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

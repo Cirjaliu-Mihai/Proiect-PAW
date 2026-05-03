@@ -12,6 +12,8 @@ namespace BarberSalon.Repositories
         private IPortofolioRepository? _portofolioRepository;
         private IServiceRepository? _serviceRepository;
         private IWorkerRepository? _workerRepository;
+        private IUserProfileRepository? _userProfileRepository;
+        private IProductRepository? _productRepository;
 
         public IAppointmentRepository AppointmentRepository
         {
@@ -76,6 +78,30 @@ namespace BarberSalon.Repositories
         public RepositoryWrapper(BarberSalonContext barberContext)
         {
             _barberContext = barberContext;
+        }
+
+        public IUserProfileRepository UserProfileRepository
+        {
+            get
+            {
+                if (_userProfileRepository == null)
+                {
+                    _userProfileRepository = new UserProfileRepository(_barberContext);
+                }
+                return _userProfileRepository;
+            }
+        }
+
+        public IProductRepository ProductRepository
+        {
+            get
+            {
+                if (_productRepository == null)
+                {
+                    _productRepository = new ProductRepository(_barberContext);
+                }
+                return _productRepository;
+            }
         }
 
         public void save()

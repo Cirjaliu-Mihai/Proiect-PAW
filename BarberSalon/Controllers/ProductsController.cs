@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BarberSalon.Controllers
 {
-    public class TeamController : Controller
+    public class ProductsController : Controller
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public TeamController(IRepositoryWrapper repositoryWrapper, IWebHostEnvironment webHostEnvironment)
+        public ProductsController(IRepositoryWrapper repositoryWrapper, IWebHostEnvironment webHostEnvironment)
         {
             _repositoryWrapper = repositoryWrapper;
             _webHostEnvironment = webHostEnvironment;
@@ -18,10 +18,10 @@ namespace BarberSalon.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var workers = await _repositoryWrapper.WorkerRepository
+            var products = await _repositoryWrapper.ProductRepository
                 .FindAll()
                 .ToListAsync();
-            return View(workers);
+            return View(products);
         }
 
         [HttpGet]
@@ -32,65 +32,65 @@ namespace BarberSalon.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Worker worker, IFormFile? photo)
+        public async Task<IActionResult> Create(Product product, IFormFile? photo)
         {
             if (!ModelState.IsValid)
-                return View(worker);
+                return View(product);
 
-            worker.PhotoPath = await SavePhotoAsync(photo, null) ?? "/assets/images/frizer1.png";
+            product.PhotoPath = await SavePhotoAsync(photo) ?? "/assets/images/products/default-product.png";
 
-            _repositoryWrapper.WorkerRepository.Create(worker);
+            _repositoryWrapper.ProductRepository.Create(product);
             _repositoryWrapper.save();
-            TempData["Success"] = "Membrul a fost adăugat cu succes!";
+            TempData["Success"] = "Produsul a fost adăugat cu succes!";
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var worker = await _repositoryWrapper.WorkerRepository
-                .FindByCondition(w => w.Id == id)
+            var product = await _repositoryWrapper.ProductRepository
+                .FindByCondition(p => p.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (worker == null)
+            if (product == null)
                 return NotFound();
 
-            return View(worker);
+            return View(product);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Worker worker, IFormFile? photo)
+        public async Task<IActionResult> Edit(int id, Product product, IFormFile? photo)
         {
-            if (id != worker.Id)
+            if (id != product.Id)
                 return BadRequest();
 
             if (!ModelState.IsValid)
-                return View(worker);
+                return View(product);
 
-            var existing = await _repositoryWrapper.WorkerRepository
-                .FindByCondition(w => w.Id == id)
+            var existing = await _repositoryWrapper.ProductRepository
+                .FindByCondition(p => p.Id == id)
                 .FirstOrDefaultAsync();
 
             if (existing == null)
                 return NotFound();
 
-            var newPath = await SavePhotoAsync(photo, null);
+            var newPath = await SavePhotoAsync(photo);
             if (newPath != null)
             {
                 DeleteFileFromWwwroot(existing.PhotoPath);
                 existing.PhotoPath = newPath;
             }
 
-            existing.Name = worker.Name;
-            existing.Position = worker.Position;
-            existing.PhoneNumber = worker.PhoneNumber;
-            existing.Address = worker.Address;
-            existing.HireDate = worker.HireDate;
+            existing.Name = product.Name;
+            existing.Brand = product.Brand;
+            existing.Description = product.Description;
+            existing.Price = product.Price;
+            existing.StockQuantity = product.StockQuantity;
 
-            _repositoryWrapper.WorkerRepository.Update(existing);
+            _repositoryWrapper.ProductRepository.Update(existing);
             _repositoryWrapper.save();
-            TempData["Success"] = "Membrul a fost actualizat cu succes!";
+            TempData["Success"] = "Produsul a fost actualizat cu succes!";
             return RedirectToAction(nameof(Index));
         }
 
@@ -98,17 +98,17 @@ namespace BarberSalon.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            var worker = await _repositoryWrapper.WorkerRepository
-                .FindByCondition(w => w.Id == id)
+            var product = await _repositoryWrapper.ProductRepository
+                .FindByCondition(p => p.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (worker == null)
+            if (product == null)
                 return NotFound();
 
-            DeleteFileFromWwwroot(worker.PhotoPath);
-            _repositoryWrapper.WorkerRepository.Delete(worker);
+            DeleteFileFromWwwroot(product.PhotoPath);
+            _repositoryWrapper.ProductRepository.Delete(product);
             _repositoryWrapper.save();
-            TempData["Success"] = "Membrul a fost șters cu succes!";
+            TempData["Success"] = "Produsul a fost șters cu succes!";
             return RedirectToAction(nameof(Index));
         }
 
@@ -121,26 +121,26 @@ namespace BarberSalon.Controllers
                 System.IO.File.Delete(fullPath);
         }
 
-        private async Task<string?> SavePhotoAsync(IFormFile? photo, string? fallback)
+        private async Task<string?> SavePhotoAsync(IFormFile? photo)
         {
             if (photo == null || photo.Length == 0)
-                return fallback;
+                return null;
 
             var ext = Path.GetExtension(photo.FileName).ToLowerInvariant();
             var allowed = new[] { ".jpg", ".jpeg", ".png", ".webp" };
             if (!allowed.Contains(ext))
-                return fallback;
+                return null;
 
-            var uploadsDir = Path.Combine(_webHostEnvironment.WebRootPath, "assets", "images", "team");
+            var uploadsDir = Path.Combine(_webHostEnvironment.WebRootPath, "assets", "images", "products");
             Directory.CreateDirectory(uploadsDir);
 
-            var fileName = $"worker-{Guid.NewGuid()}{ext}";
+            var fileName = $"product-{Guid.NewGuid()}{ext}";
             var filePath = Path.Combine(uploadsDir, fileName);
 
             using var stream = new FileStream(filePath, FileMode.Create);
             await photo.CopyToAsync(stream);
 
-            return $"/assets/images/team/{fileName}";
+            return $"/assets/images/products/{fileName}";
         }
     }
 }

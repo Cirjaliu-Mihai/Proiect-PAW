@@ -1,3 +1,4 @@
+@model UserProfile
 @using BarberSalon.Models
 @{
     ViewData["Title"] = "Profilul Meu";
@@ -15,23 +16,29 @@
                 <div class="user-info-card">
                     <div class="row align-items-center">
                         <div class="col-md-3 text-center">
-                            <img src="~/assets/images/poza-profil.png" alt="User Avatar" class="user-avatar" />
+                            <img src="@Model.PhotoPath" alt="User Avatar" class="user-avatar" />
                         </div>
                         <div class="col-md-9">
-                            <h2>Andrei Popescu</h2>
+                            <h2>@Model.Name</h2>
                             <p class="user-email">
-                                <i class="fas fa-envelope"></i> andrei@gmail.ro
+                                <i class="fas fa-envelope"></i> @Model.Email
                             </p>
+                            @if (!string.IsNullOrEmpty(Model.Phone))
+                            {
+                                <p class="user-phone">
+                                    <i class="fas fa-phone"></i> @Model.Phone
+                                </p>
+                            }
                             <p class="user-member">
-                                <i class="fas fa-calendar"></i> Membru din Martie 2025
+                                <i class="fas fa-calendar"></i> Membru din @Model.MemberSince.ToString("MMMM yyyy")
                             </p>
                             <div class="user-stats">
                                 <div class="stat">
-                                    <span class="stat-number">12</span>
+                                    <span class="stat-number">@ViewBag.TotalAppointments</span>
                                     <span class="stat-label">Programări</span>
                                 </div>
                                 <div class="stat">
-                                    <span class="stat-number">3</span>
+                                    <span class="stat-number">@ViewBag.UpcomingAppointments</span>
                                     <span class="stat-label">Viitoare</span>
                                 </div>
                             </div>
@@ -44,7 +51,7 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="profile-actions text-center">
-                    <a href="#" class="btn btn-warning me-2">
+                    <a asp-controller="Account" asp-action="EditProfile" class="btn btn-warning me-2">
                         <i class="fas fa-edit"></i> Editează Profil
                     </a>
                     <a asp-area="" asp-controller="Appointments" asp-action="Index" class="btn btn-outline-primary">

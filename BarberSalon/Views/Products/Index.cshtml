@@ -1,0 +1,81 @@
+@model List<BarberSalon.Models.Product>
+
+@{
+    ViewData["Title"] = "Produse Disponibile";
+}
+
+@section CustomStyles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/products.css" asp-append-version="true" />
+}
+
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h2 class="mb-0 w-100 text-center">Produse Disponibile în Salon</h2>
+            <a asp-action="Create" class="btn btn-warning text-nowrap ms-3">
+                <i class="fas fa-plus me-1"></i> Adaugă Produs
+            </a>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        <div class="row g-4 products-grid">
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var product in Model)
+                {
+                    <div class="col-md-4 col-lg-3">
+                        <div class="product-card d-flex flex-column h-100">
+                            <div class="product-img-wrapper">
+                                <img src="@product.PhotoPath" alt="@product.Name" />
+                            </div>
+                            <div class="p-3 d-flex flex-column flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-1">
+                                    <h5 class="mb-0">@product.Name</h5>
+                                    @if (product.StockQuantity > 0)
+                                    {
+                                        <span class="badge bg-success badge-stock">Stoc: @product.StockQuantity</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger badge-stock">Epuizat</span>
+                                    }
+                                </div>
+                                <small class="text-muted mb-2">@product.Brand</small>
+                                <p class="text-muted small flex-grow-1">@product.Description</p>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <span class="price-tag">@product.Price.ToString("0.00") RON</span>
+                                    <div class="d-flex gap-2">
+                                        <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-outline-warning">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form asp-action="Delete" asp-route-id="@product.Id" method="post"
+                                              onsubmit="return confirm('Ești sigur că vrei să ștergi produsul @Html.Raw(product.Name)?');">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">Nu sunt produse disponibile momentan.</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>

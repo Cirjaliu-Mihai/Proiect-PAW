@@ -13,12 +13,11 @@ namespace BarberSalon.Data
 
         public DbSet<Appointment> Appointment { get; set; }
         public DbSet<Service> Service { get; set; }
-
         public DbSet<Worker> Worker { get; set; }
-
         public DbSet<Review> Review { get; set; }
-
         public DbSet<PortofolioItem> PortofolioItem { get; set; }
+        public DbSet<UserProfile> UserProfile { get; set; }
+        public DbSet<Product> Product { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,7 +45,8 @@ namespace BarberSalon.Data
                     Position = "Frizer Senior",
                     Address = "Strada Primaverii, Craiova",
                     PhoneNumber = 0740123456,
-                    HireDate = new DateTime(2014, 1, 15)
+                    HireDate = new DateTime(2014, 1, 15),
+                    PhotoPath = "/assets/images/team/frizer1.png"
                 },
                 new Worker
                 {
@@ -55,7 +55,8 @@ namespace BarberSalon.Data
                     Position = "Frizer Specialist",
                     Address = "Strada Primaverii, Craiova",
                     PhoneNumber = 0740123457,
-                    HireDate = new DateTime(2016, 3, 22)
+                    HireDate = new DateTime(2016, 3, 22),
+                    PhotoPath = "/assets/images/team/frizer2.png"
                 },
                 new Worker
                 {
@@ -64,7 +65,8 @@ namespace BarberSalon.Data
                     Position = "Frizer",
                     Address = "Strada Primaverii, Craiova",
                     PhoneNumber = 0740123458,
-                    HireDate = new DateTime(2018, 6, 10)
+                    HireDate = new DateTime(2018, 6, 10),
+                    PhotoPath = "/assets/images/team/frizer3.png"
                 },
                 new Worker
                 {
@@ -73,7 +75,8 @@ namespace BarberSalon.Data
                     Position = "Frizer Apprentice",
                     Address = "Strada Primaverii, Craiova",
                     PhoneNumber = 0740123459,
-                    HireDate = new DateTime(2023, 9, 1)
+                    HireDate = new DateTime(2023, 9, 1),
+                    PhotoPath = "/assets/images/team/frizer4.png"
                 }
             );
 
@@ -88,7 +91,24 @@ namespace BarberSalon.Data
                 new Review { Id = 7, UserId = 1, Author = "Andrei Popescu", ServiceId = 3, WorkerId = 1, Rating = 5, Comment = "Masajul scalp este absolut relaxant. Echipa este super profesionistă și amabilă. Voi reveni cu siguranță!" },
                 new Review { Id = 8, UserId = 1, Author = "Elena Vlăduț", ServiceId = 6, WorkerId = 2, Rating = 4, Comment = "Tratamentul păr este foarte eficient. Părul meu se simte mult mai moale și ușor de coafat după tratament." }
             );
+
+            modelBuilder.Entity<UserProfile>().HasData(
+                new UserProfile { Id = 1, UserId = 1, Name = "Andrei Popescu", Email = "andrei@gmail.ro", Phone = "0712 345 678", MemberSince = new DateTime(2025, 3, 1), PhotoPath = "/assets/images/poza-profil.png" }
+            );
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product { Id = 1, Name = "American Crew Fiber", Brand = "American Crew", Description = "Pomadă cu textură mată și fixare medie, ideală pentru stiluri moderne", Price = 65.00m, StockQuantity = 15 },
+                new Product { Id = 2, Name = "Layrite Pomade", Brand = "Layrite", Description = "Pomadă cu fixare puternică și efect lucios pentru o coafură impecabilă", Price = 55.00m, StockQuantity = 12 },
+                new Product { Id = 3, Name = "Suavecito Original Hold", Brand = "Suavecito", Description = "Pomadă clasică cu parfum discret, ușor de spălat", Price = 50.00m, StockQuantity = 20 },
+                new Product { Id = 4, Name = "Proraso Shaving Cream", Brand = "Proraso", Description = "Cremă de ras cu eucalipt și mentol pentru un ras confortabil", Price = 45.00m, StockQuantity = 18 },
+                new Product { Id = 5, Name = "Proraso After Shave Balm", Brand = "Proraso", Description = "Balsam după ras, calmant și hidratant pentru pielea sensibilă", Price = 40.00m, StockQuantity = 10 },
+                new Product { Id = 6, Name = "Wahl Clipper Oil", Brand = "Wahl", Description = "Ulei de întreținere pentru mașini de tuns, prelungește durata de viață a lamelor", Price = 25.00m, StockQuantity = 30 },
+                new Product { Id = 7, Name = "Barbicide Disinfectant", Brand = "King Research", Description = "Dezinfectant profesional pentru unelte, standard de igienă în saloane", Price = 35.00m, StockQuantity = 8 }
+            );
         }
     }
 }
-

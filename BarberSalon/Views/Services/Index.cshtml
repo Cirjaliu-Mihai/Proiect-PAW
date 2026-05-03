@@ -5,13 +5,28 @@
 }
 
 @section CustomStyles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="~/css/services.css" asp-append-version="true" />
 }
 
 
 <section class="services-list py-5">
     <div class="container">
-        <h2 class="text-center mb-5">Serviciile Noastre</h2>
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h2 class="mb-0 w-100 text-center">Serviciile Noastre</h2>
+            <a asp-action="Create" class="btn btn-warning text-nowrap ms-3">
+                <i class="fas fa-plus me-1"></i> Adaugă Serviciu
+            </a>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="services-table">
@@ -24,7 +39,19 @@
                                     <h4>@service.Name</h4>
                                     <p>@service.Description</p>
                                 </div>
-                                <div class="service-price">@service.Price RON</div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="service-price">@service.Price RON</div>
+                                    <a asp-action="Edit" asp-route-id="@service.Id" class="btn btn-sm btn-outline-warning">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form asp-action="Delete" asp-route-id="@service.Id" method="post"
+                                          onsubmit="return confirm('Ești sigur că vrei să ștergi serviciul @service.Name?');">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         }
                     }
@@ -38,7 +65,8 @@
             </div>
         </div>
         <div class="text-center mt-5">
-            <a asp-area="" asp-controller="Appointments" asp-action="Create" class="btn btn-warning btn-lg">Rezervă Programare</a>
+            <a asp-area="" asp-controller="Appointments" asp-action="Create" class="btn btn-warning btn-lg">Rezervă
+                Programare</a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>

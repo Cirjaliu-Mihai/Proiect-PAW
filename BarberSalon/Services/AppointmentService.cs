@@ -18,6 +18,8 @@ namespace BarberSalon.Services
 
         public async Task<List<Appointment>> GetAllAppointmentsAsync()
         {
+            await _repositoryWrapper.AppointmentRepository.FinalizePassedAppointmentsAsync();
+
             return await _repositoryWrapper.AppointmentRepository
                 .FindAll()
                 .Include(a => a.Service)
@@ -121,10 +123,13 @@ namespace BarberSalon.Services
             var endTime = new TimeOnly(17, 0);
             var interval = 60;
 
+            var isToday = date.Date == DateTime.Today;
+            var nowTime = TimeOnly.FromDateTime(DateTime.Now);
+
             var currentTime = startTime;
             while (currentTime < endTime)
             {
-                if (!bookedTimes.Contains(currentTime))
+                if (!bookedTimes.Contains(currentTime) && !(isToday && currentTime <= nowTime))
                 {
                     availableTimes.Add(currentTime.ToString("HH:mm"));
                 }

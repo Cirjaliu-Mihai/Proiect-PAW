@@ -1,0 +1,69 @@
+@model UserProfile
+@{
+    ViewData["Title"] = "Editează Profil";
+}
+
+@section CustomStyles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+}
+
+<section class="profile-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="user-info-card">
+                    <h4 class="mb-4"><i class="fas fa-edit me-2"></i>Editează Profil</h4>
+
+                    <form asp-controller="Account" asp-action="EditProfile" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-4 text-center">
+                            <img src="@Model.PhotoPath" alt="Fotografie profil" class="user-avatar mb-2"
+                                 style="width:100px;height:100px;object-fit:cover;border-radius:50%;" />
+                            <div>
+                                <label for="photo" class="form-label d-block">Schimbă fotografia</label>
+                                <input type="file" id="photo" name="photo" class="form-control"
+                                       accept=".jpg,.jpeg,.png,.webp" />
+                                <span class="text-danger small">@ViewData["PhotoError"]</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Nume</label>
+                            <input asp-for="Name" class="form-control" placeholder="Numele tău complet" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Email</label>
+                            <input asp-for="Email" class="form-control" placeholder="email@exemplu.ro" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Phone" class="form-label">Telefon</label>
+                            <input asp-for="Phone" class="form-control" placeholder="07xx xxx xxx" />
+                            <span asp-validation-for="Phone" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-save me-1"></i> Salvează
+                            </button>
+                            <a asp-controller="Account" asp-action="Profile" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-1"></i> Anulează
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

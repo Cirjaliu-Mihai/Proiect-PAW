@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarberSalon.Migrations
 {
     [DbContext(typeof(BarberSalonContext))]
-    [Migration("20260329174802_SeedData")]
-    partial class SeedData
+    [Migration("20260503191133_BarberSalonSchema")]
+    partial class BarberSalonSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,6 +92,114 @@ namespace BarberSalon.Migrations
                     b.ToTable("PortofolioItem");
                 });
 
+            modelBuilder.Entity("BarberSalon.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Product");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Brand = "American Crew",
+                            Description = "Pomadă cu textură mată și fixare medie, ideală pentru stiluri moderne",
+                            Name = "American Crew Fiber",
+                            PhotoPath = "/assets/images/products/default-product.png",
+                            Price = 65.00m,
+                            StockQuantity = 15
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Brand = "Layrite",
+                            Description = "Pomadă cu fixare puternică și efect lucios pentru o coafură impecabilă",
+                            Name = "Layrite Pomade",
+                            PhotoPath = "/assets/images/products/default-product.png",
+                            Price = 55.00m,
+                            StockQuantity = 12
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Brand = "Suavecito",
+                            Description = "Pomadă clasică cu parfum discret, ușor de spălat",
+                            Name = "Suavecito Original Hold",
+                            PhotoPath = "/assets/images/products/default-product.png",
+                            Price = 50.00m,
+                            StockQuantity = 20
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Brand = "Proraso",
+                            Description = "Cremă de ras cu eucalipt și mentol pentru un ras confortabil",
+                            Name = "Proraso Shaving Cream",
+                            PhotoPath = "/assets/images/products/default-product.png",
+                            Price = 45.00m,
+                            StockQuantity = 18
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Brand = "Proraso",
+                            Description = "Balsam după ras, calmant și hidratant pentru pielea sensibilă",
+                            Name = "Proraso After Shave Balm",
+                            PhotoPath = "/assets/images/products/default-product.png",
+                            Price = 40.00m,
+                            StockQuantity = 10
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Brand = "Wahl",
+                            Description = "Ulei de întreținere pentru mașini de tuns, prelungește durata de viață a lamelor",
+                            Name = "Wahl Clipper Oil",
+                            PhotoPath = "/assets/images/products/default-product.png",
+                            Price = 25.00m,
+                            StockQuantity = 30
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Brand = "King Research",
+                            Description = "Dezinfectant profesional pentru unelte, standard de igienă în saloane",
+                            Name = "Barbicide Disinfectant",
+                            PhotoPath = "/assets/images/products/default-product.png",
+                            Price = 35.00m,
+                            StockQuantity = 8
+                        });
+                });
+
             modelBuilder.Entity("BarberSalon.Models.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -99,6 +207,10 @@ namespace BarberSalon.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Comment")
                         .IsRequired()
@@ -123,6 +235,88 @@ namespace BarberSalon.Migrations
                     b.HasIndex("WorkerId");
 
                     b.ToTable("Review");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Author = "Ion Popescu",
+                            Comment = "Cel mai bun frizer din oraș! Întotdeauna lasă cu un zâmbet și serviciul este impecabil. Recomand cu tărie!",
+                            Rating = 5,
+                            ServiceId = 1,
+                            UserId = 1,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Author = "Maria Ionescu",
+                            Comment = "Servicii de top și atmosferă prietenoasă. Mă simt relaxată și bine tratată de fiecare dată. Recomand cu căldură!",
+                            Rating = 5,
+                            ServiceId = 2,
+                            UserId = 1,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Author = "Vasile Georgescu",
+                            Comment = "Întotdeauna mă simt proaspăt și încrezător după o vizită. Profesioniștii sunt atenți la detalii și foarte courtezi.",
+                            Rating = 5,
+                            ServiceId = 1,
+                            UserId = 1,
+                            WorkerId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Author = "Alexandru Mihai",
+                            Comment = "Calitate impecabilă! Am găsit în sfârșit un salon unde mă simt acasă. Echipa este foarte profesionistă și amabilă.",
+                            Rating = 5,
+                            ServiceId = 5,
+                            UserId = 1,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Author = "Cristina Popescu",
+                            Comment = "Sunt client fidel de mai bine de un an. Mereu mă surprinde cu atenția la detalii și creativitate. Superb!",
+                            Rating = 5,
+                            ServiceId = 1,
+                            UserId = 1,
+                            WorkerId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Author = "Daniel Stancu",
+                            Comment = "Cel mai profesionist salon din Craiova! Recomand cu încredere oricui caută un serviciu de calitate.",
+                            Rating = 5,
+                            ServiceId = 2,
+                            UserId = 1,
+                            WorkerId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Author = "Andrei Popescu",
+                            Comment = "Masajul scalp este absolut relaxant. Echipa este super profesionistă și amabilă. Voi reveni cu siguranță!",
+                            Rating = 5,
+                            ServiceId = 3,
+                            UserId = 1,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Author = "Elena Vlăduț",
+                            Comment = "Tratamentul păr este foarte eficient. Părul meu se simte mult mai moale și ușor de coafat după tratament.",
+                            Rating = 4,
+                            ServiceId = 6,
+                            UserId = 1,
+                            WorkerId = 2
+                        });
                 });
 
             modelBuilder.Entity("BarberSalon.Models.Service", b =>
@@ -214,6 +408,53 @@ namespace BarberSalon.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BarberSalon.Models.UserProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("MemberSince")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserProfile");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "andrei@gmail.ro",
+                            MemberSince = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Andrei Popescu",
+                            Phone = "0712 345 678",
+                            PhotoPath = "/assets/images/poza-profil.png",
+                            UserId = 1
+                        });
+                });
+
             modelBuilder.Entity("BarberSalon.Models.Worker", b =>
                 {
                     b.Property<int>("Id")
@@ -236,6 +477,10 @@ namespace BarberSalon.Migrations
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");
 
+                    b.Property<string>("PhotoPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Position")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -252,6 +497,7 @@ namespace BarberSalon.Migrations
                             HireDate = new DateTime(2014, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Andrei Popescu",
                             PhoneNumber = 740123456,
+                            PhotoPath = "/assets/images/team/frizer1.png",
                             Position = "Frizer Senior"
                         },
                         new
@@ -261,6 +507,7 @@ namespace BarberSalon.Migrations
                             HireDate = new DateTime(2016, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Mihai Ionescu",
                             PhoneNumber = 740123457,
+                            PhotoPath = "/assets/images/team/frizer2.png",
                             Position = "Frizer Specialist"
                         },
                         new
@@ -270,6 +517,7 @@ namespace BarberSalon.Migrations
                             HireDate = new DateTime(2018, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Cristian Georgescu",
                             PhoneNumber = 740123458,
+                            PhotoPath = "/assets/images/team/frizer3.png",
                             Position = "Frizer"
                         },
                         new
@@ -279,6 +527,7 @@ namespace BarberSalon.Migrations
                             HireDate = new DateTime(2023, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Daniel Vasilescu",
                             PhoneNumber = 740123459,
+                            PhotoPath = "/assets/images/team/frizer4.png",
                             Position = "Frizer Apprentice"
                         });
                 });

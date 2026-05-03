@@ -10,11 +10,13 @@ namespace BarberSalon.Controllers
     {
         private readonly IPortfolioService _portfolioService;
         private readonly IRepositoryWrapper _repositoryWrapper;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public PortfolioController(IPortfolioService portfolioService, IRepositoryWrapper repositoryWrapper)
+        public PortfolioController(IPortfolioService portfolioService, IRepositoryWrapper repositoryWrapper, IWebHostEnvironment webHostEnvironment)
         {
             _portfolioService = portfolioService;
             _repositoryWrapper = repositoryWrapper;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> Index()
@@ -86,8 +88,21 @@ namespace BarberSalon.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
+            var item = await _portfolioService.GetPortfolioByIdAsync(id);
+            if (item != null)
+                DeleteFileFromWwwroot(item.ImageUrl);
+
             await _portfolioService.DeletePortfolioAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        private void DeleteFileFromWwwroot(string? relativePath)
+        {
+            if (string.IsNullOrEmpty(relativePath))
+                return;
+            var fullPath = Path.Combine(_webHostEnvironment.WebRootPath, relativePath.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+            if (System.IO.File.Exists(fullPath))
+                System.IO.File.Delete(fullPath);
         }
     }
 }

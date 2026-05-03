@@ -13,9 +13,9 @@
         public required string Address { get; set; }
 
         public DateTime HireDate { get; set; }
-        
+
+        public string PhotoPath { get; set; } = "/assets/images/team/frizer1.png";
+
         public List<Appointment> Appointments { get; set; } = new List<Appointment>();
-
-
     }
 }

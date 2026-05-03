@@ -7,6 +7,8 @@ namespace BarberSalon.Repositories.Interfaces
         IPortofolioRepository PortofolioRepository { get; }
         IServiceRepository ServiceRepository { get; }
         IWorkerRepository WorkerRepository { get; }
+        IUserProfileRepository UserProfileRepository { get; }
+        IProductRepository ProductRepository { get; }
         void save();
     }
 }
